@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=3 uid="uid://cpbyn124ivbup"]
+
+[ext_resource type="Script" path="res://Scripts/BlinnPhongBRDF/blinn_phong_brdf.gd" id="1_4iqhq"]
+[ext_resource type="Shader" path="res://ShaderScripts/BlinnPhongBRDF/blinn_phong_brdf.gdshader" id="1_nhkm0"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1if7s"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_igi66"]
+sky_material = SubResource("ProceduralSkyMaterial_1if7s")
+
+[sub_resource type="Environment" id="Environment_ivvfx"]
+sky = SubResource("Sky_igi66")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yydps"]
+render_priority = 0
+shader = ExtResource("1_nhkm0")
+shader_parameter/radiant_flux = null
+shader_parameter/kd = null
+shader_parameter/ks = null
+shader_parameter/ns = null
+shader_parameter/light_position = null
+
+[sub_resource type="SphereMesh" id="SphereMesh_uecc7"]
+material = SubResource("ShaderMaterial_yydps")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aqk1c"]
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_yb37i"]
+material = SubResource("StandardMaterial3D_aqk1c")
+radius = 0.1
+height = 0.2
+
+[node name="BlinnPhongBRDF" type="Node3D" node_paths=PackedStringArray("light_position")]
+script = ExtResource("1_4iqhq")
+light_position = NodePath("LightSource1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ivvfx")
+
+[node name="Sphere" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_uecc7")
+
+[node name="LightSource1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.53125, 1, -1.32447)
+mesh = SubResource("SphereMesh_yb37i")

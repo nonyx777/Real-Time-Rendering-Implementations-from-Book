@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bot7sj5uo7x0g"]
+
+[ext_resource type="PackedScene" uid="uid://cpbyn124ivbup" path="res://Scenes/blinn_phong_brdf.tscn" id="1_fdf3v"]
+
+[node name="Master" type="Node3D"]
+
+[node name="BlinnPhongBRDF" parent="." instance=ExtResource("1_fdf3v")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.520978, -0.276456, 0.80756, 0, 0.946097, 0.323882, -0.85357, 0.168736, -0.492896, 2.37688, 0.95328, -1.45073)
