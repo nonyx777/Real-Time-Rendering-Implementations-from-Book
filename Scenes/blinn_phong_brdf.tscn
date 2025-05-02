@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://cpbyn124ivbup"]
 
-[ext_resource type="Script" path="res://Scripts/BlinnPhongBRDF/blinn_phong_brdf.gd" id="1_4iqhq"]
-[ext_resource type="Shader" path="res://ShaderScripts/BlinnPhongBRDF/blinn_phong_brdf.gdshader" id="1_nhkm0"]
+[ext_resource type="Script" path="res://BlinnPhongBRDF/blinn_phong_brdf.gd" id="1_4iqhq"]
+[ext_resource type="Shader" path="res://BlinnPhongBRDF/blinn_phong_brdf.gdshader" id="1_nhkm0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1if7s"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
