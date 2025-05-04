@@ -2,6 +2,7 @@ shader_type spatial;
 render_mode unshaded;
 
 uniform float radiant_flux;
+uniform vec3 ka;
 uniform vec3 kd;
 uniform vec3 ks;
 uniform float ns;
@@ -44,8 +45,9 @@ void vertex() {
 }
 
 void fragment() {
+	vec3 radiance = rgb2lin(kd) * rgb2lin(ka);
 	vec3 brdf = brdf(rgb2lin(kd), rgb2lin(ks), ns, CAMERA_POSITION_WORLD, light_position, vertex_world_pos, vertex_world_norm);
 	float irradiance = irradiance(light_position, vertex_world_pos, vertex_world_norm, radiant_flux);
-	vec3 radiance = brdf * irradiance;
+	radiance += brdf * irradiance;
 	ALBEDO = radiance;
 }

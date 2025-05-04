@@ -1,12 +1,26 @@
-[gd_scene load_steps=11 format=3 uid="uid://cpbyn124ivbup"]
+[gd_scene load_steps=14 format=3 uid="uid://cpbyn124ivbup"]
 
 [ext_resource type="Script" path="res://BlinnPhongBRDF/blinn_phong_brdf.gd" id="1_4iqhq"]
 [ext_resource type="Shader" path="res://BlinnPhongBRDF/blinn_phong_brdf.gdshader" id="1_nhkm0"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xn4yi"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_egy7j"]
+sky_material = SubResource("ProceduralSkyMaterial_xn4yi")
+
+[sub_resource type="Environment" id="Environment_h0uen"]
+background_mode = 1
+sky = SubResource("Sky_egy7j")
+tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gkcbh"]
 render_priority = 0
 shader = ExtResource("1_nhkm0")
 shader_parameter/radiant_flux = null
+shader_parameter/ka = null
 shader_parameter/kd = null
 shader_parameter/ks = null
 shader_parameter/ns = null
@@ -29,6 +43,7 @@ height = 0.2
 render_priority = 0
 shader = ExtResource("1_nhkm0")
 shader_parameter/radiant_flux = null
+shader_parameter/ka = null
 shader_parameter/kd = null
 shader_parameter/ks = null
 shader_parameter/ns = null
@@ -41,6 +56,7 @@ material = SubResource("ShaderMaterial_1s6ik")
 render_priority = 0
 shader = ExtResource("1_nhkm0")
 shader_parameter/radiant_flux = null
+shader_parameter/ka = null
 shader_parameter/kd = null
 shader_parameter/ks = null
 shader_parameter/ns = null
@@ -52,13 +68,16 @@ size = Vector2(8, 8)
 
 [node name="BlinnPhongBRDF" type="Node3D"]
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_h0uen")
+
 [node name="Sphere" type="MeshInstance3D" parent="." node_paths=PackedStringArray("light_position")]
 mesh = SubResource("SphereMesh_xwpnw")
 script = ExtResource("1_4iqhq")
 light_position = NodePath("../LightSource1")
 
 [node name="LightSource1" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.662729, 0.79926, 0.171252)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.827651, 0.0308699, 1.82792)
 mesh = SubResource("SphereMesh_yb37i")
 
 [node name="Box" type="MeshInstance3D" parent="." node_paths=PackedStringArray("light_position")]
