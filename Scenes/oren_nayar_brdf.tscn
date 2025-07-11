@@ -1,0 +1,59 @@
+[gd_scene load_steps=10 format=3 uid="uid://dbal5lrhaswx4"]
+
+[ext_resource type="Shader" uid="uid://qqd2h85bmh6s" path="res://OrenNayarBRDF/oren_nayar_brdf.gdshader" id="1_p88sh"]
+[ext_resource type="Script" uid="uid://by31oqgg65h7r" path="res://OrenNayarBRDF/oren_nayar_brdf.gd" id="1_ppn6n"]
+[ext_resource type="Script" uid="uid://4oprjaj1g2gu" path="res://OrenNayarBRDF/h_slider.gd" id="3_t55kc"]
+
+[sub_resource type="GDScript" id="GDScript_p88sh"]
+script/source = "extends Node3D
+"
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p88sh"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_t55kc"]
+sky_material = SubResource("ProceduralSkyMaterial_p88sh")
+
+[sub_resource type="Environment" id="Environment_rjd15"]
+background_mode = 1
+sky = SubResource("Sky_t55kc")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t55kc"]
+render_priority = 0
+shader = ExtResource("1_p88sh")
+shader_parameter/light_direction = Vector3(0.923243, -0.225053, -0.311406)
+shader_parameter/diffuse_color = Vector3(1, 1, 1)
+shader_parameter/A = 0.62406
+shader_parameter/B = 0.412844
+
+[sub_resource type="SphereMesh" id="SphereMesh_h38rb"]
+material = SubResource("ShaderMaterial_t55kc")
+
+[node name="oren_nayar_brdf" type="Node3D"]
+script = SubResource("GDScript_p88sh")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rjd15")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.319605, -0.213249, 0.923243, -2.79357e-08, -0.974346, -0.225053, 0.947551, 0.0719282, -0.311406, 0, 0, 0)
+
+[node name="Planet" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_h38rb")
+script = ExtResource("1_ppn6n")
+roughness_squared = 1.0
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.630703, -0.199514, 0.749939, 0, 0.966386, 0.257097, -0.776024, -0.162152, 0.609502, 1.62068, 0.555607, 1.31718)
+
+[node name="HSlider" type="HSlider" parent="."]
+offset_right = 232.0
+offset_bottom = 53.0
+max_value = 10.0
+step = 0.01
+script = ExtResource("3_t55kc")
+
+[connection signal="value_changed" from="HSlider" to="HSlider" method="_on_value_changed"]
