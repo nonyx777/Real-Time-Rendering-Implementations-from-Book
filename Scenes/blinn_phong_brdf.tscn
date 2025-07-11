@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://cpbyn124ivbup"]
 
-[ext_resource type="Script" path="res://BlinnPhongBRDF/blinn_phong_brdf.gd" id="1_4iqhq"]
-[ext_resource type="Shader" path="res://BlinnPhongBRDF/blinn_phong_brdf.gdshader" id="1_nhkm0"]
+[ext_resource type="Script" uid="uid://ct1vu2wbgmax1" path="res://BlinnPhongBRDF/blinn_phong_brdf.gd" id="1_4iqhq"]
+[ext_resource type="Shader" uid="uid://bf5bk67ll1rju" path="res://BlinnPhongBRDF/blinn_phong_brdf.gdshader" id="1_nhkm0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xn4yi"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -19,12 +19,12 @@ glow_enabled = true
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gkcbh"]
 render_priority = 0
 shader = ExtResource("1_nhkm0")
-shader_parameter/radiant_flux = null
-shader_parameter/ka = null
-shader_parameter/kd = null
-shader_parameter/ks = null
-shader_parameter/ns = null
-shader_parameter/light_position = null
+shader_parameter/radiant_flux = 30.0
+shader_parameter/ka = Vector3(0.15, 0.15, 0.15)
+shader_parameter/kd = Vector3(0.25, 0.5, 0.2)
+shader_parameter/ks = Vector3(0.25, 0.25, 0.25)
+shader_parameter/ns = 400.0
+shader_parameter/light_position = Vector3(1.03154, 0.0308699, 0.094954)
 
 [sub_resource type="SphereMesh" id="SphereMesh_xwpnw"]
 material = SubResource("ShaderMaterial_gkcbh")
@@ -42,12 +42,12 @@ height = 0.2
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1s6ik"]
 render_priority = 0
 shader = ExtResource("1_nhkm0")
-shader_parameter/radiant_flux = null
-shader_parameter/ka = null
-shader_parameter/kd = null
-shader_parameter/ks = null
-shader_parameter/ns = null
-shader_parameter/light_position = null
+shader_parameter/radiant_flux = 30.0
+shader_parameter/ka = Vector3(0.15, 0.15, 0.15)
+shader_parameter/kd = Vector3(0.25, 0.5, 0.2)
+shader_parameter/ks = Vector3(0.25, 0.25, 0.25)
+shader_parameter/ns = 400.0
+shader_parameter/light_position = Vector3(1.03154, 0.0308699, 0.094954)
 
 [sub_resource type="BoxMesh" id="BoxMesh_u5uol"]
 material = SubResource("ShaderMaterial_1s6ik")
@@ -55,12 +55,12 @@ material = SubResource("ShaderMaterial_1s6ik")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_03xb4"]
 render_priority = 0
 shader = ExtResource("1_nhkm0")
-shader_parameter/radiant_flux = null
-shader_parameter/ka = null
-shader_parameter/kd = null
-shader_parameter/ks = null
-shader_parameter/ns = null
-shader_parameter/light_position = null
+shader_parameter/radiant_flux = 30.0
+shader_parameter/ka = Vector3(0.15, 0.15, 0.15)
+shader_parameter/kd = Vector3(0.25, 0.5, 0.2)
+shader_parameter/ks = Vector3(0.25, 0.25, 0.25)
+shader_parameter/ns = 400.0
+shader_parameter/light_position = Vector3(1.03154, 0.0308699, 0.094954)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_b554b"]
 material = SubResource("ShaderMaterial_03xb4")
@@ -77,7 +77,7 @@ script = ExtResource("1_4iqhq")
 light_position = NodePath("../LightSource1")
 
 [node name="LightSource1" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.827651, 0.0308699, 1.82792)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.03154, 0.0308699, 0.094954)
 mesh = SubResource("SphereMesh_yb37i")
 
 [node name="Box" type="MeshInstance3D" parent="." node_paths=PackedStringArray("light_position")]
