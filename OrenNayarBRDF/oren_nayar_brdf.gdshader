@@ -5,6 +5,7 @@ uniform vec3 light_direction;
 uniform vec3 diffuse_color;
 uniform float A;
 uniform float B;
+uniform sampler2D angleTermTexture;
 
 varying vec3 vertex_world_pos;
 varying vec3 vertex_world_norm;
@@ -22,17 +23,14 @@ void fragment() {
 	float ldotn = dot(normalize(light_direction), vertex_world_norm);
 	float irradiance = max(0.0f, ldotn);
 	
-	float angle_view_normal = acos(vdotn);
-	float angle_light_normal = acos(ldotn);
-	
 	float angle_difference = max(0.0f, 
 		dot(normalize(vertex_to_eye - vertex_world_norm * vdotn), 
 			normalize(light_direction - vertex_world_norm * ldotn))
 	);
 	
-	float alpha = max(angle_view_normal, angle_light_normal);
-	float beta = min(angle_view_normal, angle_light_normal);
-	
-	vec3 final_color = diffuse_color * (A + B * angle_difference * sin(alpha) * tan(beta)) * irradiance;
+	float n_vdotn = 0.5f * vdotn + 0.5f;
+	float n_ldotn = 0.5f * ldotn + 0.5f;
+	float value = texture(angleTermTexture, vec2(n_vdotn, n_ldotn)).r;
+	vec3 final_color = diffuse_color * (A + B * angle_difference * value) * irradiance;
 	ALBEDO = final_color + ambient_light;
 }
