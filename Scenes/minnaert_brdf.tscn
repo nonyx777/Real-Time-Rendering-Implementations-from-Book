@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://irmlbic76k3f"]
+
+[ext_resource type="Shader" uid="uid://c8l8vxgwxa2a" path="res://MinnaertBRDF/minnaert_brdf.gdshader" id="1_jgs3w"]
+[ext_resource type="Script" uid="uid://cs6mk5uhsoorx" path="res://MinnaertBRDF/minnaert_brdf.gd" id="1_q880d"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t8nip"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_stuqy"]
+sky_material = SubResource("ProceduralSkyMaterial_t8nip")
+
+[sub_resource type="Environment" id="Environment_eitr0"]
+background_mode = 2
+sky = SubResource("Sky_stuqy")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t8nip"]
+render_priority = 0
+shader = ExtResource("1_jgs3w")
+shader_parameter/power = 0.8
+shader_parameter/lightDirection = Vector3(0, 0.108277, -0.994121)
+shader_parameter/diffuseColor = Vector3(0.221297, 0.653159, 0.540095)
+
+[sub_resource type="TorusMesh" id="TorusMesh_ovhgj"]
+material = SubResource("ShaderMaterial_t8nip")
+
+[node name="minnaert_brdf" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_eitr0")
+
+[node name="Torus" type="MeshInstance3D" parent="."]
+mesh = SubResource("TorusMesh_ovhgj")
+script = ExtResource("1_q880d")
+diffuseColor = Color(0.221297, 0.653159, 0.540095, 1)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.994121, 0.108277, 0, -0.108277, -0.994121, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.248654, -0.48646, 0.837573, 0, 0.864732, 0.502234, -0.968592, 0.124883, -0.215019, 2.11125, 1.26597, -0.541996)
+
+[node name="HSlider" type="HSlider" parent="."]
+offset_right = 177.0
+offset_bottom = 49.0
+max_value = 1.0
+step = 0.01
+
+[connection signal="value_changed" from="HSlider" to="Torus" method="_on_h_slider_value_changed"]
