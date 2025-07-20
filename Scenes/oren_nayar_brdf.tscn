@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dbal5lrhaswx4"]
+[gd_scene load_steps=10 format=3 uid="uid://dbal5lrhaswx4"]
 
 [ext_resource type="Shader" uid="uid://qqd2h85bmh6s" path="res://OrenNayarBRDF/oren_nayar_brdf.gdshader" id="1_p88sh"]
 [ext_resource type="Script" uid="uid://by31oqgg65h7r" path="res://OrenNayarBRDF/oren_nayar_brdf.gd" id="1_ppn6n"]
 [ext_resource type="Texture2D" uid="uid://bso8eovbc1u5m" path="res://OrenNayarBRDF/moon_color.jpg" id="2_rjd15"]
-[ext_resource type="Script" uid="uid://4oprjaj1g2gu" path="res://OrenNayarBRDF/h_slider.gd" id="3_t55kc"]
 
 [sub_resource type="GDScript" id="GDScript_p88sh"]
 script/source = "extends Node3D
@@ -57,6 +56,5 @@ offset_right = 232.0
 offset_bottom = 53.0
 max_value = 1.0
 step = 0.01
-script = ExtResource("3_t55kc")
 
-[connection signal="value_changed" from="HSlider" to="HSlider" method="_on_value_changed"]
+[connection signal="value_changed" from="HSlider" to="Planet" method="_on_h_slider_value_changed"]

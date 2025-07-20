@@ -53,3 +53,7 @@ func _process(_delta: float) -> void:
 	material.set_shader_parameter("diffuse_color", Vector3(diffuse_color.r, diffuse_color.g, diffuse_color.b))
 	material.set_shader_parameter("A", A)
 	material.set_shader_parameter("B", B)
+
+
+func _on_h_slider_value_changed(value: float) -> void:
+	roughness_squared = value
