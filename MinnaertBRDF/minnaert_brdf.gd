@@ -1,9 +1,8 @@
-@tool
 extends MeshInstance3D
 
 var material: Material
 var power: float = 0.8
-@onready var directionalLight: DirectionalLight3D = $"../DirectionalLight3D"
+@onready var directionalLight: DirectionalLight3D = $"../../DirectionalLight3D"
 @export var diffuseColor: Color
 
 func _ready() -> void:
