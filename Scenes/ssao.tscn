@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://b36jpviwet8kw"]
+
+[ext_resource type="ArrayMesh" uid="uid://djwm3igkphdpk" path="res://Models/StanfordDragon/StanfordDragon.res" id="1_yp3wx"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yp3wx"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_dvs1q"]
+sky_material = SubResource("ProceduralSkyMaterial_yp3wx")
+
+[sub_resource type="Environment" id="Environment_abjl1"]
+sky = SubResource("Sky_dvs1q")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_yp3wx"]
+size = Vector2(2, 1)
+
+[node name="SSAO" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_abjl1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.9151, -0.237323, -0.325989, 0, -0.808452, 0.588562, -0.403226, -0.538593, -0.739815, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Quad" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.25, 0.145772)
+mesh = SubResource("QuadMesh_yp3wx")
+
+[node name="StanfordDragon" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.35, 0.132)
+
+[node name="mesh" type="MeshInstance3D" parent="StanfordDragon"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.110179, -1.11422)
+mesh = ExtResource("1_yp3wx")
+skeleton = NodePath("../..")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.928809, 0.137313, -0.344178, 0, 0.92881, 0.370557, 0.370558, 0.344177, -0.862687, -0.966349, 0.956175, -1.50213)
