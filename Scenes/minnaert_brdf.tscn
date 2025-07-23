@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://irmlbic76k3f"]
 
 [ext_resource type="Script" uid="uid://cs6mk5uhsoorx" path="res://MinnaertBRDF/minnaert_brdf.gd" id="1_q880d"]
-[ext_resource type="ArrayMesh" uid="uid://cu2q7m4c2gqf0" path="res://Models/cloth_Object_0.res" id="3_t8nip"]
+[ext_resource type="ArrayMesh" uid="uid://cu2q7m4c2gqf0" path="res://Models/Cloth/cloth_Object_0.res" id="3_t8nip"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t8nip"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
