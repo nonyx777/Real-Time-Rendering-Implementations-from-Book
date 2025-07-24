@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b36jpviwet8kw"]
+[gd_scene load_steps=10 format=3 uid="uid://b36jpviwet8kw"]
 
 [ext_resource type="ArrayMesh" uid="uid://djwm3igkphdpk" path="res://Models/StanfordDragon/StanfordDragon.res" id="1_yp3wx"]
+[ext_resource type="Shader" uid="uid://ry50rsfnqpai" path="res://SSAO/ssao.gdshader" id="2_dvs1q"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yp3wx"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -15,7 +16,19 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="QuadMesh" id="QuadMesh_yp3wx"]
-size = Vector2(2, 1)
+size = Vector2(10, 10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yp3wx"]
+render_priority = 0
+shader = ExtResource("2_dvs1q")
+
+[sub_resource type="QuadMesh" id="QuadMesh_dvs1q"]
+material = SubResource("ShaderMaterial_yp3wx")
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dvs1q"]
+size = Vector3(1, 5, 1)
 
 [node name="SSAO" type="Node3D"]
 
@@ -24,9 +37,8 @@ environment = SubResource("Environment_abjl1")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.9151, -0.237323, -0.325989, 0, -0.808452, 0.588562, -0.403226, -0.538593, -0.739815, 0, 0, 0)
-shadow_enabled = true
 
-[node name="Quad" type="MeshInstance3D" parent="."]
+[node name="Floor" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.25, 0.145772)
 mesh = SubResource("QuadMesh_yp3wx")
 
@@ -40,3 +52,14 @@ skeleton = NodePath("../..")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-0.928809, 0.137313, -0.344178, 0, 0.92881, 0.370557, 0.370558, 0.344177, -0.862687, -0.966349, 0.956175, -1.50213)
+
+[node name="Screen" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_dvs1q")
+
+[node name="Wall1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 5.48968, 2, 2.22654, 0)
+mesh = SubResource("BoxMesh_dvs1q")
+
+[node name="Wall2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 5.48968, 0, 1, 0, -1, 0, -2.39962e-07, -1.21822, 2.22654, 2.20515)
+mesh = SubResource("BoxMesh_dvs1q")

@@ -11,6 +11,6 @@ config_version=5
 [application]
 
 config/name="RealTimeRendering"
-run/main_scene="uid://irmlbic76k3f"
+run/main_scene="uid://b36jpviwet8kw"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
