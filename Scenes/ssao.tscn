@@ -64,6 +64,9 @@ transform = Transform3D(-0.763231, 0.0112764, -0.646026, 0, 0.999848, 0.0174523,
 [node name="Screen" type="MeshInstance3D" parent="."]
 mesh = SubResource("QuadMesh_dvs1q")
 script = ExtResource("3_abjl1")
+ssao_radius = 0.07
+ssao_strength = 6.125
+ssao_bias = 0.0
 
 [node name="Wall1" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 5.48968, 2, 2.22654, 0)

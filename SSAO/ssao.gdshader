@@ -4,11 +4,11 @@ uniform sampler2D screen_texture: hint_screen_texture;
 uniform sampler2D depth_texture: hint_depth_texture;
 uniform sampler2D normal_texture: hint_normal_roughness_texture;
 
-uniform float ssao_radius = 0.5;
-uniform int ssao_samples_count = 64;
+uniform float ssao_radius = 0.2;
+uniform int ssao_samples_count = 128;
 uniform float ssao_strength = 1.0;
-uniform float ssao_bias = 0.025;
-uniform vec3 samples[64];
+uniform float ssao_bias = 0.0001;
+uniform vec3 samples[128];
 uniform sampler2D rand_texture;
 //1152 x 648
 const vec2 noise_scale = vec2(1152.0 / 4.0, 648.0 / 4.0);
@@ -25,7 +25,7 @@ void fragment() {
 	vec3 frag_pos = view.xyz; // view space frag position
 	float linear_depth = -(view.xyz / view.w).z / 100.0;
 	vec3 normal = texture(normal_texture, SCREEN_UV).xyz * 2.0 - 1.0; // normal here
-	vec3 random_vec = texture(rand_texture, SCREEN_UV * noise_scale).rgb;
+	vec3 random_vec = texture(rand_texture, SCREEN_UV * noise_scale).rgb * 2.0 - 1.0;
 	
 	//constructing the TBN matrix to transform any vector from tangent-space to view-space
 	vec3 tangent = normalize(random_vec - normal * dot(random_vec, normal));
@@ -45,7 +45,7 @@ void fragment() {
 		vec3 ndc_ = vec3(offset.xy * 2.0 - 1.0, sample_depth);
 		vec4 view_ = INV_PROJECTION_MATRIX * vec4(ndc_, 1.0);
 		view_.xyz /= view_.w;
-		occlusion += view_.z >= sample.z + ssao_bias ? 1.0 : 0.0;
+		occlusion += (view_.z >= sample.z + ssao_bias ? 1.0 : 0.0) * ssao_strength;
 	}
 	occlusion = 1.0 - (occlusion / float(ssao_samples_count));
 	
