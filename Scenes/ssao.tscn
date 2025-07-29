@@ -1,10 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://b36jpviwet8kw"]
+[gd_scene load_steps=11 format=3 uid="uid://b36jpviwet8kw"]
 
 [ext_resource type="ArrayMesh" uid="uid://djwm3igkphdpk" path="res://Models/StanfordDragon/StanfordDragon.res" id="1_yp3wx"]
 [ext_resource type="Shader" uid="uid://ry50rsfnqpai" path="res://SSAO/ssao.gdshader" id="2_dvs1q"]
 [ext_resource type="Script" uid="uid://b4y33wo7jbde2" path="res://SSAO/screen.gd" id="3_abjl1"]
 [ext_resource type="ArrayMesh" uid="uid://vkn0cfcv2a53" path="res://Models/HappyBuddha/happy_buddha.res" id="4_8gs8w"]
-[ext_resource type="ArrayMesh" uid="uid://b61q6qskbqk2m" path="res://Models/Backpack/backpack.obj" id="5_yywom"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yp3wx"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -14,6 +13,7 @@ ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 sky_material = SubResource("ProceduralSkyMaterial_yp3wx")
 
 [sub_resource type="Environment" id="Environment_abjl1"]
+background_color = Color(0.997053, 0.997053, 0.997053, 1)
 sky = SubResource("Sky_dvs1q")
 tonemap_mode = 2
 glow_enabled = true
@@ -24,19 +24,16 @@ size = Vector2(10, 10)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yp3wx"]
 render_priority = 0
 shader = ExtResource("2_dvs1q")
-shader_parameter/ssao_radius = 0.5
-shader_parameter/ssao_samples_count = 16
+shader_parameter/ssao_radius = 0.2
+shader_parameter/ssao_samples_count = 64
 shader_parameter/ssao_strength = 1.0
-shader_parameter/ssao_bias = 0.02
+shader_parameter/ssao_bias = 0.1
 shader_parameter/samples = PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 [sub_resource type="QuadMesh" id="QuadMesh_dvs1q"]
 material = SubResource("ShaderMaterial_yp3wx")
 flip_faces = true
 size = Vector2(2, 2)
-
-[sub_resource type="BoxMesh" id="BoxMesh_dvs1q"]
-size = Vector3(1, 5, 1)
 
 [node name="SSAO" type="Node3D"]
 
@@ -64,17 +61,8 @@ transform = Transform3D(-0.763231, 0.0112764, -0.646026, 0, 0.999848, 0.0174523,
 [node name="Screen" type="MeshInstance3D" parent="."]
 mesh = SubResource("QuadMesh_dvs1q")
 script = ExtResource("3_abjl1")
-ssao_radius = 0.07
-ssao_strength = 6.125
-ssao_bias = 0.0
-
-[node name="Wall1" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 5.48968, 2, 2.22654, 0)
-mesh = SubResource("BoxMesh_dvs1q")
-
-[node name="Wall2" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 5.48968, 0, 1, 0, -1, 0, -2.39962e-07, -1.21822, 2.22654, 2.20515)
-mesh = SubResource("BoxMesh_dvs1q")
+ssao_radius = 0.115
+ssao_strength = 1.5
 
 [node name="HappyBuddha" type="Node3D" parent="."]
 transform = Transform3D(0.60116, -0.799129, -3.4931e-08, 0, -4.37114e-08, 1, -0.799129, -0.60116, -2.62775e-08, -0.140806, 0.624273, -0.734806)
@@ -82,7 +70,3 @@ transform = Transform3D(0.60116, -0.799129, -3.4931e-08, 0, -4.37114e-08, 1, -0.
 [node name="mesh" type="MeshInstance3D" parent="HappyBuddha"]
 mesh = ExtResource("4_8gs8w")
 skeleton = NodePath("../..")
-
-[node name="Backpack" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.141283, 0.00421011, -0.141497, -0.0117726, 0.19887, 0.017672, 0.141069, 0.0208127, -0.140237, -0.887486, 0.125841, -0.379969)
-mesh = ExtResource("5_yywom")

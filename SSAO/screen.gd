@@ -2,17 +2,17 @@ extends MeshInstance3D
 
 var material: Material
 
-@export var ssao_samples_count: int = 128
+@export var ssao_samples_count: int = 32
 @export var ssao_radius: float = 0.2
 @export var ssao_strength: float = 1.0
-@export var ssao_bias: float = 0.0001
+@export var ssao_bias: float = 0.0
 
 var ssao_kernel: PackedVector3Array = []
 var noise_texture: Texture2D
 
 func generateSamples() -> void:
 	for i in range(ssao_samples_count):
-		var sample = Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(0.0, 1.0))
+		var sample = Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(0.0, 1.0)).normalized()
 		var scale = float(i) / float(ssao_samples_count)
 		scale = lerp(0.1, 1.0, scale * scale)
 		sample *= scale
@@ -20,12 +20,11 @@ func generateSamples() -> void:
 		ssao_kernel.append(sample)
 
 func generateNoiseTexture() -> void:
-	var noise_image: Image = Image.create(4, 4, false, Image.FORMAT_RGBAF)
-	for y in range(4):
-		for x in range(4):
+	var noise_image: Image = Image.create(8, 8, false, Image.FORMAT_RGB8)
+	for y in range(8):
+		for x in range(8):
 			var noise_vec = Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), 0.0).normalized()
-			noise_vec *= 0.5 + 0.5
-			noise_image.set_pixel(x, y, Color(noise_vec.x, noise_vec.y, noise_vec.z))
+			noise_image.set_pixel(x, y, Color(noise_vec.x * 0.5 + 0.5, noise_vec.y * 0.5 + 0.5, noise_vec.z * 0.5 + 0.5))
 	noise_texture = ImageTexture.create_from_image(noise_image)
 
 func _ready() -> void:
