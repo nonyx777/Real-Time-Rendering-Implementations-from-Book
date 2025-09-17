@@ -11,6 +11,10 @@ config_version=5
 [application]
 
 config/name="RealTimeRendering"
-run/main_scene="uid://irmlbic76k3f"
+run/main_scene="uid://dmpp5knvv70kr"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true

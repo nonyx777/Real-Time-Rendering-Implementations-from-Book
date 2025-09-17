@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmpp5knvv70kr"]
+
+[ext_resource type="Shader" uid="uid://dxov1ih83enlu" path="res://WardBRDF/ward_brdf.gdshader" id="1_0raoq"]
+[ext_resource type="Script" uid="uid://dnpk8rc4wwk1f" path="res://WardBRDF/ward_brdf.gd" id="2_moner"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0raoq"]
+render_priority = 0
+shader = ExtResource("1_0raoq")
+shader_parameter/roughness = 0.25
+shader_parameter/light_direction = Vector3(0, 0.746255, 0.66566)
+shader_parameter/diffuse_color = Vector3(0.110647, 3.01359e-05, 0.135973)
+shader_parameter/specular_color = Vector3(1.73271e-06, 0.678149, 0.873465)
+
+[sub_resource type="TorusMesh" id="TorusMesh_moner"]
+material = SubResource("ShaderMaterial_0raoq")
+
+[node name="WardBRDF" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("TorusMesh_moner")
+script = ExtResource("2_moner")
+roughness = 0.25
+diffuse_color = Color(0.110647, 3.01359e-05, 0.135973, 1)
+specular_color = Color(1.73271e-06, 0.678149, 0.873465, 1)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.66566, 0.746255, 0, -0.746255, 0.66566, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.493976, -0.430102, 0.755646, 0, 0.869082, 0.494668, -0.869476, -0.244354, 0.429305, 2.22169, 1.45438, 1.26221)
