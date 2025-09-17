@@ -31,7 +31,7 @@ void fragment() {
 	vec3 irradiance = vec3(max(0.f, costheta));
 
 	vec3 specular_term = specular_color * first_term * second_term;
-	vec3 final_color = diffuse_color + specular_term;
+	vec3 final_color = irradiance * (diffuse_color + specular_term);
 
 	ALBEDO = final_color;
 }

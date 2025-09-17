@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dmpp5knvv70kr"]
 
-[ext_resource type="Shader" uid="uid://dxov1ih83enlu" path="res://WardBRDF/ward_brdf.gdshader" id="1_0raoq"]
-[ext_resource type="Script" uid="uid://dnpk8rc4wwk1f" path="res://WardBRDF/ward_brdf.gd" id="2_moner"]
+[ext_resource type="Shader" uid="uid://dxov1ih83enlu" path="res://WardBRDF/isotropic_ward_brdf.gdshader" id="1_0raoq"]
+[ext_resource type="Script" uid="uid://dnpk8rc4wwk1f" path="res://WardBRDF/isotropic_ward_brdf.gd" id="2_moner"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0raoq"]
 render_priority = 0
