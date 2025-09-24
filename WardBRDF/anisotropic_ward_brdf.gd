@@ -37,3 +37,11 @@ func _process(_delta: float) -> void:
 	material2.set_shader_parameter("light_direction", light_direction.transform.basis.z)
 	material2.set_shader_parameter("diffuse_color", Vector3(diffuse_color.r, diffuse_color.g, diffuse_color.b))
 	material2.set_shader_parameter("specular_color", Vector3(specular_color.r, specular_color.g, specular_color.b))
+
+
+func _on_r_1_value_changed(value: float) -> void:
+	roughness_1 = value
+
+
+func _on_r_2_value_changed(value: float) -> void:
+	roughness_2 = value

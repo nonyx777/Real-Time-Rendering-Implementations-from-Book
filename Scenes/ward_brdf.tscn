@@ -1,11 +1,24 @@
-[gd_scene load_steps=13 format=4 uid="uid://dmpp5knvv70kr"]
+[gd_scene load_steps=17 format=4 uid="uid://dmpp5knvv70kr"]
 
 [ext_resource type="Shader" uid="uid://dxov1ih83enlu" path="res://WardBRDF/isotropic_ward_brdf.gdshader" id="1_0raoq"]
+[ext_resource type="Script" uid="uid://cdiv7a2up4a5m" path="res://WardBRDF/directional_light_3d.gd" id="1_ssigh"]
 [ext_resource type="Script" uid="uid://dnpk8rc4wwk1f" path="res://WardBRDF/isotropic_ward_brdf.gd" id="2_moner"]
 [ext_resource type="Texture2D" uid="uid://b0jjh68y5o1tw" path="res://Textures/Metal/Texturelabs_Metal_283S.jpg" id="2_yvqvb"]
 [ext_resource type="ArrayMesh" uid="uid://decncwpicbfwt" path="res://Models/the-utah-teapot/source/teapot.obj" id="3_moner"]
 [ext_resource type="Shader" uid="uid://dnnsgoa4j4nxx" path="res://WardBRDF/anisotropicward_brdf.gdshader" id="3_tkyfu"]
 [ext_resource type="Script" uid="uid://dn1cj1y4lkfjo" path="res://WardBRDF/anisotropic_ward_brdf.gd" id="4_s203l"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yvqvb"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_ssigh"]
+sky_material = SubResource("ProceduralSkyMaterial_yvqvb")
+
+[sub_resource type="Environment" id="Environment_eyjn4"]
+background_mode = 1
+background_color = Color(0.118581, 0.118581, 0.118581, 1)
+sky = SubResource("Sky_ssigh")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_tkyfu"]
 _surfaces = [{
@@ -83,8 +96,8 @@ shader_parameter/albedoTexture = ExtResource("2_yvqvb")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s203l"]
 render_priority = 0
 shader = ExtResource("3_tkyfu")
-shader_parameter/roughness_1 = 0.83
-shader_parameter/roughness_2 = 0.09
+shader_parameter/roughness_1 = 0.1
+shader_parameter/roughness_2 = 0.1
 shader_parameter/light_direction = Vector3(0, 0.746255, 0.66566)
 shader_parameter/diffuse_color = Vector3(0, 0, 0)
 shader_parameter/specular_color = Vector3(0.886262, 0.886261, 0.886262)
@@ -93,8 +106,8 @@ shader_parameter/albedo_texture = ExtResource("2_yvqvb")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ssigh"]
 render_priority = 0
 shader = ExtResource("3_tkyfu")
-shader_parameter/roughness_1 = 0.83
-shader_parameter/roughness_2 = 0.09
+shader_parameter/roughness_1 = 0.1
+shader_parameter/roughness_2 = 0.1
 shader_parameter/light_direction = Vector3(0, 0.746255, 0.66566)
 shader_parameter/diffuse_color = Vector3(0, 0, 0)
 shader_parameter/specular_color = Vector3(0.886262, 0.886261, 0.886262)
@@ -102,11 +115,15 @@ shader_parameter/albedo_texture = ExtResource("2_yvqvb")
 
 [node name="WardBRDF" type="Node3D"]
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_eyjn4")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.66566, 0.746255, 0, -0.746255, 0.66566, 0, 0, 0)
+script = ExtResource("1_ssigh")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.0218107, -0.572788, 0.819413, 0, 0.819609, 0.572924, -0.999762, -0.0124959, 0.0178762, 4.37883, 3.79717, -0.14893)
+transform = Transform3D(0.480945, -0.383716, 0.788323, 0, 0.899142, 0.437657, -0.87675, -0.210489, 0.432438, 3.45505, 2.49762, 1.5112)
 
 [node name="IsotropicTeapot" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.13873)
@@ -123,6 +140,26 @@ mesh = ExtResource("3_moner")
 surface_material_override/0 = SubResource("ShaderMaterial_s203l")
 surface_material_override/1 = SubResource("ShaderMaterial_ssigh")
 script = ExtResource("4_s203l")
-roughness_1 = 0.83
-roughness_2 = 0.09
+roughness_1 = 0.1
+roughness_2 = 0.1
 specular_color = Color(0.886262, 0.886261, 0.886262, 1)
+
+[node name="R1" type="HSlider" parent="."]
+offset_right = 297.0
+offset_bottom = 63.0
+min_value = 0.1
+max_value = 1.0
+step = 0.01
+value = 0.1
+
+[node name="R2" type="HSlider" parent="."]
+offset_top = 59.0
+offset_right = 296.0
+offset_bottom = 98.0
+min_value = 0.1
+max_value = 1.0
+step = 0.01
+value = 0.1
+
+[connection signal="value_changed" from="R1" to="AnisotropicTeapot" method="_on_r_1_value_changed"]
+[connection signal="value_changed" from="R2" to="AnisotropicTeapot" method="_on_r_2_value_changed"]
