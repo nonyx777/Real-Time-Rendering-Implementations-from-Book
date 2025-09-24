@@ -5,6 +5,7 @@ uniform float roughness;
 uniform vec3 light_direction;
 uniform vec3 diffuse_color;
 uniform vec3 specular_color;
+uniform sampler2D albedoTexture;
 
 varying vec3 normal;
 varying vec3 vert;
@@ -31,7 +32,7 @@ void fragment() {
 	vec3 irradiance = vec3(max(0.f, costheta));
 
 	vec3 specular_term = specular_color * first_term * second_term;
-	vec3 final_color = irradiance * (diffuse_color + specular_term);
+	vec3 final_color = irradiance * (texture(albedoTexture, UV).xyz + specular_term);
 
 	ALBEDO = final_color;
 }
