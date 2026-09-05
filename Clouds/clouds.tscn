@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dyf46ourdcylt"]
+
+[ext_resource type="Shader" uid="uid://dldl73jdjdihy" path="res://Clouds/clouds.gdshader" id="1_hmje7"]
+[ext_resource type="Script" uid="uid://df2bskjvoef8" path="res://Clouds/clouds.gd" id="1_kt4y7"]
+[ext_resource type="CompressedTexture3D" uid="uid://bmywlsxtymrkg" path="res://Clouds/VolumeCloud.exr" id="2_kt4y7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1fgmn"]
+render_priority = 0
+shader = ExtResource("1_hmje7")
+shader_parameter/base_tex = ExtResource("2_kt4y7")
+shader_parameter/color_light = Color(0.9955804, 0.99558026, 0.99558026, 1)
+shader_parameter/color_shadow = Color(0, 0, 0, 1)
+shader_parameter/light_direction = Vector3(0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qbxgd"]
+
+[node name="Clouds" type="Node3D" unique_id=302772035]
+script = ExtResource("1_kt4y7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2058100601]
+
+[node name="volume_container" type="MeshInstance3D" parent="." unique_id=170802496]
+material_override = SubResource("ShaderMaterial_1fgmn")
+mesh = SubResource("BoxMesh_qbxgd")
