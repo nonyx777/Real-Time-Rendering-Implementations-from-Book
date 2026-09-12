@@ -19,6 +19,10 @@ run/main_scene="uid://dyf46ourdcylt"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/texture3d-converter/plugin.cfg")
+
 [rendering]
 
 textures/vram_compression/import_etc2_astc=true

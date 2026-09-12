@@ -2,15 +2,15 @@
 
 [ext_resource type="Shader" uid="uid://dldl73jdjdihy" path="res://Clouds/clouds.gdshader" id="1_hmje7"]
 [ext_resource type="Script" uid="uid://df2bskjvoef8" path="res://Clouds/clouds.gd" id="1_kt4y7"]
-[ext_resource type="CompressedTexture3D" uid="uid://bmywlsxtymrkg" path="res://Clouds/VolumeCloud.exr" id="2_kt4y7"]
+[ext_resource type="ImageTexture3D" uid="uid://rs4qulc2cviu" path="res://assets/cloud_volume.tres" id="3_7bi4k"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1fgmn"]
 render_priority = 0
 shader = ExtResource("1_hmje7")
-shader_parameter/base_tex = ExtResource("2_kt4y7")
+shader_parameter/base_tex = ExtResource("3_7bi4k")
 shader_parameter/color_light = Color(0.9955804, 0.99558026, 0.99558026, 1)
 shader_parameter/color_shadow = Color(0, 0, 0, 1)
-shader_parameter/light_direction = Vector3(0, 0, 1)
+shader_parameter/light_direction = Vector3(-0.97588533, 0.21822566, 0.005061443)
 
 [sub_resource type="BoxMesh" id="BoxMesh_qbxgd"]
 
@@ -18,6 +18,7 @@ shader_parameter/light_direction = Vector3(0, 0, 1)
 script = ExtResource("1_kt4y7")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2058100601]
+transform = Transform3D(0.21822846, -0.0049394527, -0.97588533, 0.9758978, 0.0011045508, 0.21822566, 3.143761e-11, -0.9999872, 0.005061443, 0, 0, 0)
 
 [node name="volume_container" type="MeshInstance3D" parent="." unique_id=170802496]
 material_override = SubResource("ShaderMaterial_1fgmn")
