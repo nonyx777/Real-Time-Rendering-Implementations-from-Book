@@ -1,7 +1,6 @@
 shader_type spatial;
 render_mode unshaded;
 
-#define NUM_STEPS 128
 #define STEP_SIZE 0.01
 #define NUM_LIGHT_STEPS 6
 #define LIGHT_STEP_SIZE 0.05
@@ -25,8 +24,40 @@ vec3 ray_marching(
 	float transmission = 0.0;
 	float light_accumulation = 0.0;
 	float final_light = 0.0;
-
-	for (int i = 0; i < NUM_STEPS; i++)
+	
+	//ray entry and exit..................................
+	float x_min = -0.5;
+	float y_min = -0.5;
+	float z_min = -0.5;
+	float x_max = 0.5; 
+	float y_max = 0.5;
+	float z_max = 0.5;
+	
+	float t_x1 = (x_min - ray_origin.x) / ray_direction.x;
+	float t_x2 = (x_max - ray_origin.x) / ray_direction.x;
+	
+	float t_y1 = (y_min - ray_origin.y) / ray_direction.y;
+	float t_y2 = (y_max - ray_origin.y) / ray_direction.y;
+	
+	float t_z1 = (z_min - ray_origin.z) / ray_direction.z;
+	float t_z2 = (z_max - ray_origin.z) / ray_direction.z;
+	
+	float t_x_enter = min(t_x1, t_x2);
+	float t_x_exit = max(t_x1, t_x2);
+	
+	float t_y_enter = min(t_y1, t_y2);
+	float t_y_exit = max(t_y1, t_y2);
+	
+	float t_z_enter = min(t_z1, t_z2);
+	float t_z_exit = max(t_z1, t_z2);
+	
+	float t_enter = max(t_x_enter, max(t_y_enter, t_z_enter));
+	float t_exit = min(t_x_exit, min(t_y_exit, t_z_exit));
+	
+	//.......................................................
+	
+	float t_current = t_enter;
+	for (int i = 0; t_current < t_exit; i++)
 	{
 		ray_origin += (ray_direction * STEP_SIZE);
 		vec3 sampled_position = ray_origin + offset;
@@ -46,6 +77,8 @@ vec3 ray_marching(
 		float shadow = darkness * light_transmission * (1.0 - darkness);
 		final_light += density * transmittance * shadow;
 		transmittance *= exp(-density * light_absorb);
+		
+		t_current += STEP_SIZE;
 	}
 
 	transmission = exp(-density);
