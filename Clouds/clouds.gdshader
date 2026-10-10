@@ -29,30 +29,20 @@ vec3 ray_marching(
 	float x_min = -0.5;
 	float y_min = -0.5;
 	float z_min = -0.5;
-	float x_max = 0.5; 
+	float x_max = 0.5;
 	float y_max = 0.5;
 	float z_max = 0.5;
 	
-	float t_x1 = (x_min - ray_origin.x) / ray_direction.x;
-	float t_x2 = (x_max - ray_origin.x) / ray_direction.x;
+	vec3 xyz_min = vec3(x_min, y_min, z_min);
+	vec3 t_xyz1 = (xyz_min - ray_origin) / ray_direction;
+	vec3 xyz_max = vec3(x_max, y_max, z_max);
+	vec3 t_xyz2 = (xyz_max - ray_origin) / ray_direction;
 	
-	float t_y1 = (y_min - ray_origin.y) / ray_direction.y;
-	float t_y2 = (y_max - ray_origin.y) / ray_direction.y;
+	vec3 t_xyz_enter = min(t_xyz1, t_xyz2);
+	vec3 t_xyz_exit = max(t_xyz1, t_xyz2);
 	
-	float t_z1 = (z_min - ray_origin.z) / ray_direction.z;
-	float t_z2 = (z_max - ray_origin.z) / ray_direction.z;
-	
-	float t_x_enter = min(t_x1, t_x2);
-	float t_x_exit = max(t_x1, t_x2);
-	
-	float t_y_enter = min(t_y1, t_y2);
-	float t_y_exit = max(t_y1, t_y2);
-	
-	float t_z_enter = min(t_z1, t_z2);
-	float t_z_exit = max(t_z1, t_z2);
-	
-	float t_enter = max(t_x_enter, max(t_y_enter, t_z_enter));
-	float t_exit = min(t_x_exit, min(t_y_exit, t_z_exit));
+	float t_enter = max(t_xyz_enter.x, max(t_xyz_enter.y, t_xyz_enter.z));
+	float t_exit = min(t_xyz_exit.x, min(t_xyz_exit.y, t_xyz_exit.z));
 	
 	//.......................................................
 	
