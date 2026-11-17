@@ -10,6 +10,8 @@ uniform vec3 color_light: source_color;
 uniform vec3 color_shadow: source_color;
 uniform vec3 light_direction;
 
+uniform sampler3D hole_texture: source_color, repeat_disable;
+
 vec3 ray_marching(
 	vec3 ray_origin,
 	vec3 ray_direction,
@@ -52,7 +54,8 @@ vec3 ray_marching(
 		ray_origin += (ray_direction * STEP_SIZE);
 		vec3 sampled_position = ray_origin + offset;
 		float sample_density = texture(base_tex, sampled_position).r;
-		density += sample_density;
+		float sample_mask = texture(hole_texture, sampled_position).r;
+		density += sample_density * sample_mask;
 
 		vec3 light_ray_origin = sampled_position;
 		light_accumulation = 0.0;

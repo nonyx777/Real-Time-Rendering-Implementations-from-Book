@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://dujqvx18kuif7"
+path="res://.godot/imported/compute_hole.glsl-f52e1affa5dfdf03c0a642e0587bae2f.res"
+
+[deps]
+
+source_file="res://Clouds/compute_hole.glsl"
+dest_files=["res://.godot/imported/compute_hole.glsl-f52e1affa5dfdf03c0a642e0587bae2f.res"]
+
+[params]
+
