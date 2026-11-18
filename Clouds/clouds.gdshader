@@ -63,7 +63,8 @@ vec3 ray_marching(
 		{
 			light_ray_origin += (light_dir * LIGHT_STEP_SIZE);
 			float light_density = texture(base_tex, light_ray_origin).r;
-			light_accumulation += light_density;
+			float light_mask = texture(hole_texture, light_ray_origin).r;
+			light_accumulation += light_density * light_mask;
 		}
 
 		float light_transmission = exp(-light_accumulation);

@@ -20,7 +20,7 @@ var compute_pipeline: RID
 var uniform_set: RID
 var params_buffer: RID
 
-@export var radius: float = 0.5
+var init_gpu_tex_once: int = 0
 
 func create_texture() -> void:
 	var format := RDTextureFormat.new()
@@ -100,7 +100,7 @@ func _process(_delta: float) -> void:
 		params_buffer,
 		0,
 		16,
-		PackedFloat32Array([0.0, 0.0, 0.0, radius]).to_byte_array()
+		PackedFloat32Array([0.0, 0.0, 0.0, init_gpu_tex_once]).to_byte_array()
 	)
 
 	var compute_list := rd.compute_list_begin()
@@ -113,6 +113,8 @@ func _process(_delta: float) -> void:
 		ceili(TEXTURE_DEPTH / float(WORKGROUP_SIZE))
 	)
 	rd.compute_list_end()
+	
+	init_gpu_tex_once = 1
 
 func _exit_tree() -> void:
 	if rd == null:

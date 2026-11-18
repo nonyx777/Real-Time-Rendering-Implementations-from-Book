@@ -26,3 +26,6 @@ transform = Transform3D(0.21822846, -0.0049394527, -0.97588533, 0.9758978, 0.001
 [node name="volume_container" type="MeshInstance3D" parent="." unique_id=170802496]
 material_override = SubResource("ShaderMaterial_1fgmn")
 mesh = SubResource("BoxMesh_qbxgd")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1978970235]
+transform = Transform3D(-0.9999905, 0.0021980654, -0.0037690848, 0, 0.86383545, 0.50377405, 0.004363198, 0.5037692, -0.8638272, -0.005719721, 0.76449513, -1.3108888)
